@@ -23,39 +23,45 @@ def test_greeting_dani():
 
 def test_reverse_long():
     """Test reversing a long string."""
-    expected = ''
-    actual = ''
+    expected = 'qwertyuiop'
+    actual = reverse('poiuytrewq')
     assert actual == expected
 
 def test_reverse_short():
     """Test reversing a short string."""
-    expected = ''
-    actual = ''
+    expected = 'asdf'
+    actual = reverse('fdsa')
     assert actual == expected
 
 def test_reverse_words_long():
     """Test reversing words in a long string."""
-    expected = ''
-    actual = ''
+    expected = 'olleH ym eman si ,nagoL tahw si ?sruoy'
+    actual = reverse_words('Hello my name is Logan, what is yours?')
     assert actual == expected
 
 def test_reverse_words_short():
     """Test reversing words in a short string."""
-    expected = ''
-    actual = ''
+    expected = ',woW !emosewa'
+    actual = reverse_words('Wow, awesome!')
     assert actual == expected
 
 def test_sarcastic_long():
     """Test sarcastic-ifying a long string."""
-    expected = ''
-    actual = ''
+    expected = 'ThIs Is ThE sArCaStIc StRiNg TeSt.'
+    actual = sarcastic('This is the sarcastic string test.')
     assert actual == expected
 
 def test_sarcastic_short():
     """Test sarcastic-ifying a short string."""
-    expected = ''
-    actual = ''
+    expected = 'Oh YeAh.'
+    actual = sarcastic('Oh yeah.')
     assert actual == expected
+
+def test_find_longest_word():
+    with pytest.raises(Exception):
+        expected = 'yeah'
+        actual = sarcastic('Oh yeah')
+        assert actual == expected
 
 # run the tests
 if __name__ == '__main__':

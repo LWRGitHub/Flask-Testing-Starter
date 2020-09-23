@@ -34,9 +34,10 @@ def sarcastic(str):
 # error to make the test pass.
 def find_longest_word(sentence):
     """Returns the longest word in a sentence."""
+
     words_list = sentence.split()
     print(words_list)
-    longest_word = words_list[0]
+    longest_word = ''
     for word in words_list:
         if len(word) > len(longest_word):
             longest_word = word

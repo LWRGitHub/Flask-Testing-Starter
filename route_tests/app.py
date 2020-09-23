@@ -24,7 +24,10 @@ def show_color_form():
 @app.route('/color_results')
 def process_color_results():
     users_favorite_color = request.args.get('color')
-    return f"Wow, {users_favorite_color} is my favorite color, too!"
+    if users_favorite_color != '':
+        return f"Wow, {users_favorite_color} is my favorite color, too!"
+    else:
+        return "You didn't specify a color!"
 
 
 @app.route('/froyo')

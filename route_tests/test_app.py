@@ -30,15 +30,23 @@ def test_color_results_blue():
     expected_page_text = 'Wow, blue is my favorite color, too!'
     assert expected_page_text == result_page_text
 
-def test_color_results_scenario1():
-    # TODO: Fill in this function to test the color_results route under 
-    # a specific scenario.
-    pass
+def test_color_results_light_green():
+    result = app.test_client().get('/color_results?color=light%20green')
 
-def test_color_results_edgecase1():
-    # TODO: Fill in this function to test the color_results route under 
-    # an edge case scenario.
-    pass
+    assert result.status_code == 200
+
+    result_page_text = result.get_data(as_text=True)
+    expected_page_text = 'Wow, light green is my favorite color, too!'
+    assert expected_page_text == result_page_text
+
+def test_color_results_empty():
+    result = app.test_client().get('/color_results?color=')
+
+    assert result.status_code == 200
+
+    result_page_text = result.get_data(as_text=True)
+    expected_page_text = "You didn't specify a color!"
+    assert expected_page_text == result_page_text
 
 
 #######################
