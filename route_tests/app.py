@@ -92,18 +92,24 @@ def calculator():
 
 @app.route('/calculator_results', methods=['POST'])
 def calculator_results():
-    operand1 = int(request.form.get('operand1'))
-    operand2 = int(request.form.get('operand2'))
+    print('entered')
+    operand1 = request.form.get('operand1')
+    operand2 = request.form.get('operand2')
     operation = request.form.get('operation')
-    if operation == 'add':
-        result = operand1 + operand2
-    elif operation == 'subtract':
-        result = operand1 - operand2
-    elif operation == 'multiply':
-        result = operand1 * operand2
+    if operand1 != '' and operand2 != '' and operation != '':
+        operand1 = int(operand1)
+        operand2 = int(operand2)
+        if operation == 'add':
+            result = operand1 + operand2
+        elif operation == 'subtract':
+            result = operand1 - operand2
+        elif operation == 'multiply':
+            result = operand1 * operand2
+        else:
+            result = operand1 / operand2
+        return f'You chose to {operation} {str(operand1)} and {str(operand2)}. Your result is: {str(result)}'
     else:
-        result = operand1 / operand2
-    return f'You chose to {operation} {str(operand1)} and {str(operand2)}. Your result is: {str(result)}'
+        return "Please enter two numbers and an operation."
 
 
 if __name__ == '__main__':

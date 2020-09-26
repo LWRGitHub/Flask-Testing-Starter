@@ -22,6 +22,7 @@ def test_index():
 #######################
 
 def test_color_results_blue():
+    """ tests of the input blue """
     result = app.test_client().get('/color_results?color=blue')
 
     assert result.status_code == 200
@@ -31,6 +32,7 @@ def test_color_results_blue():
     assert expected_page_text == result_page_text
 
 def test_color_results_light_green():
+    """ test of the input light green """
     result = app.test_client().get('/color_results?color=light%20green')
 
     assert result.status_code == 200
@@ -40,6 +42,7 @@ def test_color_results_light_green():
     assert expected_page_text == result_page_text
 
 def test_color_results_empty():
+    """ checks if it can handle an empty input """
     result = app.test_client().get('/color_results?color=')
 
     assert result.status_code == 200
@@ -74,6 +77,7 @@ def test_froyo_results_numbers():
     assert expected_page_text == result_page_text
 
 def test_froyo_results_spaces():
+    """ checks if spaces work """
     result = app.test_client().get('/froyo_results?flavor=whipped&toppings=sprinkls%20chocolet%20Chips')
 
     assert result.status_code == 200
@@ -83,6 +87,7 @@ def test_froyo_results_spaces():
     assert expected_page_text == result_page_text
 
 def test_froyo_results_empty():
+    """ tests and empty input """
     result = app.test_client().get('/froyo_results?flavor=&toppings=')
 
     assert result.status_code == 200
@@ -134,6 +139,7 @@ def test_message_results_empty():
 #######################
 
 def test_calculator_results_num_plus():
+    """ tests the add operation """
     form_data = {
         'operand1': '2',
         'operand2': '4',
@@ -145,7 +151,8 @@ def test_calculator_results_num_plus():
     result_page_text = res.get_data(as_text=True)
     assert f'You chose to add 2 and 4. Your result is: 6' in result_page_text
 
-def test_calculator_results_scenario2():
+def test_calculator_results_srt_num():
+    """ test to see if the func can do string numbers """
     form_data = {
         'operand1': '2',
         'operand2': '4',
@@ -157,22 +164,54 @@ def test_calculator_results_scenario2():
     result_page_text = res.get_data(as_text=True)
     assert f'You chose to add 2 and 4. Your result is: 6' in result_page_text
 
-def test_calculator_results_scenario3():
-    # TODO: Fill in this function to test the calculator_results route under a
-    # specific scenario.
-    pass
+def test_calculator_results_neg_num():
+    """ tests to see if the func can do negative numbers """ 
+    form_data = {
+        'operand1': '-2',
+        'operand2': '-4',
+        'operation': 'subtract'
+    }
+    res = app.test_client().post('/calculator_results', data=form_data)
+    assert res.status_code == 200
 
-def test_calculator_results_scenario4():
-    # TODO: Fill in this function to test the calculator_results route under a
-    # specific scenario.
-    pass
+    result_page_text = res.get_data(as_text=True)
+    assert f'You chose to subtract -2 and -4. Your result is: 2' in result_page_text
 
-def test_calculator_results_edgecase1():
-    # TODO: Fill in this function to test the calculator_results route under a
-    # specific EDGE CASE scenario.
-    pass
+def test_calculator_results_multiply():
+    """ tests multiply  """
+    form_data = {
+        'operand1': '2',
+        'operand2': '4',
+        'operation': 'multiply'
+    }
+    res = app.test_client().post('/calculator_results', data=form_data)
+    assert res.status_code == 200
 
-def test_calculator_results_edgecase2():
-    # TODO: Fill in this function to test the calculator_results route under a
-    # specific EDGE CASE scenario.
-    pass
+    result_page_text = res.get_data(as_text=True)
+    assert f'You chose to multiply 2 and 4. Your result is: 8' in result_page_text
+
+def test_calculator_results_num():
+    """ tests if the function can handle an int """ 
+    form_data = {
+        'operand1': 2,
+        'operand2': 4,
+        'operation': 'add'
+    }
+    res = app.test_client().post('/calculator_results', data=form_data)
+    assert res.status_code == 200
+
+    result_page_text = res.get_data(as_text=True)
+    assert f'You chose to add 2 and 4. Your result is: 6' in result_page_text
+
+def test_calculator_results_empty():
+    """ test to see if the function can deal with an empty string """
+    form_data = {
+        'operand1': '',
+        'operand2': '',
+        'operation': ''
+    }
+    res = app.test_client().post('/calculator_results', data=form_data)
+    assert res.status_code == 200
+
+    result_page_text = res.get_data(as_text=True)
+    assert "Please enter two numbers and an operation." in result_page_text
